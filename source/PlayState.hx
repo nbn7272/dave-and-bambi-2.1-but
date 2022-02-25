@@ -749,7 +749,7 @@ class PlayState extends MusicBeatState
 			fence.scrollFactor.set(0.98, 0.98);
 			fence.active = false;
 
-			var sign:FlxSprite = new FlxSprite(0, 500).loadGraphic(Paths.image('bambi/sign'));
+			var sign:FlxSprite = new FlxSprite(0, 500).loadGraphic(Paths.image('bambi/Sign')); //issue
 			sign.antialiasing = true;
 			sign.scrollFactor.set(1, 1);
 			sign.active = false;
@@ -872,7 +872,7 @@ class PlayState extends MusicBeatState
 		screenshader.waveAmplitude = 1;
 		screenshader.waveFrequency = 2;
 		screenshader.waveSpeed = 1;
-		screenshader.shader.uTime.value[0] = new flixel.math.FlxRandom().float(-100000, 100000);
+		screenshader.shader.uTime.value[0] = new flixel.math.FlxRandom().float(-100000, 100000); //why he qhite :joy:
 
 		switch (curStage)
 		{
@@ -2429,72 +2429,29 @@ class PlayState extends MusicBeatState
 					dad.playAnim('sing' + fuckingDumbassBullshitFuckYou + altAnim, true);
 					dadmirror.playAnim('sing' + fuckingDumbassBullshitFuckYou + altAnim, true);
 
-					if (SONG.song.toLowerCase() != 'senpai' && SONG.song.toLowerCase() != 'roses' && SONG.song.toLowerCase() != 'thorns')
+					if (SONG.song.toLowerCase() != 'senpai' && SONG.song.toLowerCase() != 'roses' && SONG.song.toLowerCase() != 'thorns') 
 					{
-						dadStrums.forEach(function(spr:FlxSprite)
+						dadStrums.forEach(function(sprite:FlxSprite)
 						{
-							switch (spr.ID) //idufhasduj
+							if (Math.abs(Math.round(Math.abs(daNote.noteData)) % keyAmmo[mania]) == sprite.ID)
 							{
-								case 2:
-									if ((Math.abs(daNote.noteData) == 2) && spr.animation.curAnim.name != 'confirm')
-									{
-										if (spr.animation.curAnim.name != 'confirm')
-										{
-											spr.animation.play('confirm', true);
-										}
-										else
-										{
-											spr.animation.reset();
-										}
-										spr.centerOffsets();
-										spr.offset.x -= 13;
-										spr.offset.y -= 13;
-									}
-								case 3:
-									if ((Math.abs(daNote.noteData) == 3) && spr.animation.curAnim.name != 'confirm')
-									{
-										if (spr.animation.curAnim.name != 'confirm')
-										{
-											spr.animation.play('confirm', true);
-										}
-										else
-										{
-											spr.animation.reset();
-										}
-										spr.centerOffsets();
-										spr.offset.x -= 13;
-										spr.offset.y -= 13;
-									}
-								case 1:
-									if ((Math.abs(daNote.noteData) == 1) && spr.animation.curAnim.name != 'confirm')
-									{
-										if (spr.animation.curAnim.name != 'confirm')
-										{
-											spr.animation.play('confirm', true);
-										}
-										else
-										{
-											spr.animation.reset();
-										}
-										spr.centerOffsets();
-										spr.offset.x -= 13;
-										spr.offset.y -= 13;
-									}
-								case 0:
-									if ((Math.abs(daNote.noteData) == 0) && spr.animation.curAnim.name != 'confirm')
-									{
-										if (spr.animation.curAnim.name != 'confirm')
-										{
-											spr.animation.play('confirm', true);
-										}
-										else
-										{
-											spr.animation.reset();
-										}
-										spr.centerOffsets();
-										spr.offset.x -= 13;
-										spr.offset.y -= 13;
-									}
+								sprite.animation.play('confirm', true);
+								if (sprite.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+								{
+									sprite.centerOffsets();
+									sprite.offset.x -= 13;
+									sprite.offset.y -= 13;
+								}
+								else
+								{
+									sprite.centerOffsets();
+								}
+								sprite.animation.finishCallback = function(name:String)
+								{
+									sprite.animation.play('static',true);
+									sprite.centerOffsets();
+								}
+	
 							}
 						});
 					}
